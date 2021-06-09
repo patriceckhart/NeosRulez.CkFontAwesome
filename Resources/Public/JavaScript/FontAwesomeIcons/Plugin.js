@@ -1083,29 +1083,25 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-/**
- * FACTORY FUNCTION for the plugin
- * needs the current preset configuration as parameter.
- */
 exports.default = function (presetIdentifier, presetConfiguration) {
     return function (_Plugin) {
-        _inherits(InlineStylesEditing, _Plugin);
+        _inherits(FontAwesomeIcons, _Plugin);
 
-        function InlineStylesEditing() {
-            _classCallCheck(this, InlineStylesEditing);
+        function FontAwesomeIcons() {
+            _classCallCheck(this, FontAwesomeIcons);
 
-            return _possibleConstructorReturn(this, (InlineStylesEditing.__proto__ || Object.getPrototypeOf(InlineStylesEditing)).apply(this, arguments));
+            return _possibleConstructorReturn(this, (FontAwesomeIcons.__proto__ || Object.getPrototypeOf(FontAwesomeIcons)).apply(this, arguments));
         }
 
-        _createClass(InlineStylesEditing, [{
+        _createClass(FontAwesomeIcons, [{
             key: 'init',
             value: function init() {
-                this.editor.model.schema.extend('$text', { allowAttributes: 'inlineStyles-' + presetIdentifier });
+                this.editor.model.schema.extend('$text', { allowAttributes: 'fontAwesomeIcons-' + presetIdentifier });
 
                 // Model configuration
                 var config = {
                     model: {
-                        key: 'inlineStyles-' + presetIdentifier,
+                        key: 'fontAwesomeIcons-' + presetIdentifier,
                         values: Object.keys(presetConfiguration.options)
                     },
                     view: {}
@@ -1117,7 +1113,7 @@ exports.default = function (presetIdentifier, presetConfiguration) {
                     var classes = presetConfiguration.options[optionIdentifier].cssClass.split(' ');
 
                     config.view[optionIdentifier] = {
-                        name: 'span',
+                        name: 'i',
                         classes: classes
                     };
                 });
@@ -1125,11 +1121,11 @@ exports.default = function (presetIdentifier, presetConfiguration) {
                 // Convert the model to view correctly
                 this.editor.conversion.attributeToElement(config);
 
-                this.editor.commands.add('inlineStyles:' + presetIdentifier, new InlineStylesCommand(this.editor, 'inlineStyles-' + presetIdentifier));
+                this.editor.commands.add('fontAwesomeIcons:' + presetIdentifier, new _FontAwesomeIconsCommand2.default(this.editor, 'fontAwesomeIcons-' + presetIdentifier));
             }
         }]);
 
-        return InlineStylesEditing;
+        return FontAwesomeIcons;
     }(_ckeditor5Exports.Plugin);
 };
 
@@ -1158,13 +1154,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Originally taken from https://raw.githubusercontent.com/ckeditor/ckeditor5/master/packages/ckeditor5-basic-styles/src/attributecommand.js and adjusted
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // taken from https://raw.githubusercontent.com/ckeditor/ckeditor5/master/packages/ckeditor5-basic-styles/src/attributecommand.js and adjusted
 
 
-/**
- * Set a key-value inline style; e.g. "fontColor=red".
- *
- */
 var FontAwesomeIconsCommand = function (_Command) {
     _inherits(FontAwesomeIconsCommand, _Command);
 
@@ -1557,7 +1549,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     var richtextToolbar = ckEditorRegistry.get('richtextToolbar');
     var config = ckEditorRegistry.get('config');
 
-    var fontAwesomeIconConfiguration = frontendConfiguration['NeosRulez.CkFontAwesome:FontAwesomeIcons'];
+    var fontAwesomeIconConfiguration = frontendConfiguration['NeosRulez.CkFontAwesome:Icons'];
 
     if (fontAwesomeIconConfiguration) {
 
@@ -1568,18 +1560,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
             config.set('NeosRulez.CkFontAwesome:FontAwesomeIcons_' + presetIdentifier, function (ckEditorConfiguration, _ref2) {
                 var editorOptions = _ref2.editorOptions;
 
-                ckEditorConfiguration.plugins = ckEditorConfiguration.plugins || [];
-                ckEditorConfiguration.plugins.push((0, _FontAwesomeIcons2.default)(presetIdentifier, fontAwesomeIconPresetConfiguration));
+                var editing = (0, _FontAwesomeIcons2.default)(presetIdentifier, fontAwesomeIconPresetConfiguration);
+                ckEditorConfiguration.plugins = _FontAwesomeIcons2.default.plugins || [];
+                ckEditorConfiguration.plugins.push(editing);
                 return ckEditorConfiguration;
             });
 
             richtextToolbar.set('fontAwesomeIcons_' + presetIdentifier, {
-                component: FontAwesomeIconSelector,
+                component: _FontAwesomeIconsSelector2.default,
                 // Display only if the preset is activated in NodeType.yaml for this node property
                 isVisible: function isVisible(editorOptions, formattingUnderCursor) {
                     var isVisible = false;
-                    if (editorOptions['fontAwesomeIcon'] !== undefined && editorOptions['fontAwesomeIcon'][presetIdentifier] !== undefined) {
-                        isVisible = editorOptions['fontAwesomeIcon'][presetIdentifier];
+                    if (editorOptions['Icons'] !== undefined && editorOptions['Icons'][presetIdentifier] !== undefined) {
+                        isVisible = editorOptions['Icons'][presetIdentifier];
                     }
                     return isVisible;
                 },

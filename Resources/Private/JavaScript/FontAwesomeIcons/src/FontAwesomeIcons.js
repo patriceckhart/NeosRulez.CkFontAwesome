@@ -1,22 +1,18 @@
 import { Plugin } from 'ckeditor5-exports';
 import FontAwesomeIconsCommand from './FontAwesomeIconsCommand';
 
-/**
- * FACTORY FUNCTION for the plugin
- * needs the current preset configuration as parameter.
- */
 export default (presetIdentifier, presetConfiguration) =>
-    class InlineStylesEditing extends Plugin {
+    class FontAwesomeIcons extends Plugin {
         init() {
             this.editor.model.schema.extend(
                 '$text',
-                { allowAttributes: `inlineStyles-${presetIdentifier}` }
+                { allowAttributes: `fontAwesomeIcons-${presetIdentifier}` }
             );
 
             // Model configuration
             const config = {
                 model: {
-                    key: `inlineStyles-${presetIdentifier}`,
+                    key: `fontAwesomeIcons-${presetIdentifier}`,
                     values: Object.keys(presetConfiguration.options),
                 },
                 view: {}
@@ -28,7 +24,7 @@ export default (presetIdentifier, presetConfiguration) =>
                 const classes = presetConfiguration.options[optionIdentifier].cssClass.split(' ');
 
                 config.view[optionIdentifier] = {
-                    name: 'span',
+                    name: 'i',
                     classes: classes
                 }
             });
@@ -36,6 +32,6 @@ export default (presetIdentifier, presetConfiguration) =>
             // Convert the model to view correctly
             this.editor.conversion.attributeToElement(config);
 
-            this.editor.commands.add(`inlineStyles:${presetIdentifier}`, new InlineStylesCommand(this.editor, `inlineStyles-${presetIdentifier}`));
+            this.editor.commands.add(`fontAwesomeIcons:${presetIdentifier}`, new FontAwesomeIconsCommand(this.editor, `fontAwesomeIcons-${presetIdentifier}`));
         }
     }

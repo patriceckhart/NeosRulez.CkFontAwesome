@@ -1,10 +1,6 @@
-// Originally taken from https://raw.githubusercontent.com/ckeditor/ckeditor5/master/packages/ckeditor5-basic-styles/src/attributecommand.js and adjusted
+// taken from https://raw.githubusercontent.com/ckeditor/ckeditor5/master/packages/ckeditor5-basic-styles/src/attributecommand.js and adjusted
 import { Command } from 'ckeditor5-exports';
 
-/**
- * Set a key-value inline style; e.g. "fontColor=red".
- *
- */
 export default class FontAwesomeIconsCommand extends Command {
     /**
      * @param {module:core/editor/editor~Editor} editor
