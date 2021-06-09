@@ -1,0 +1,23 @@
+{
+    "description": "Neos package which enables you adding Font Awesome Icons for the CkEditor with a simple Yaml configuration",
+    "type": "neos-package",
+    "name": "neosrulez/ckfontawesome",
+    "require": {
+        "neos/neos-ui": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "NeosRulez\\CkFontAwesome\\": "Classes/"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "NeosRulez.CkFontAwesome",
+            "loading-order": {
+                "after": [
+                    "neos/neos"
+                ]
+            }
+        }
+    }
+}

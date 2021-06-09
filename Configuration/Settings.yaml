@@ -1,0 +1,25 @@
+Neos:
+  Neos:
+    Ui:
+      resources:
+        javascript:
+          'NeosRulez.CkFontAwesome:Icons':
+            resource: resource://NeosRulez.CkFontAwesome/Public/JavaScript/FontAwesomeIcons/Plugin.js
+      frontendConfiguration:
+        'NeosRulez.CkFontAwesome:FontAwesomeIcons': '${Configuration.setting(''NeosRulez.CkFontAwesome.FontAwesomeIcons'')}'
+NeosRulez:
+  CkFontAwesome:
+    FontAwesomeIcons:
+      presets:
+        'icon':
+          label: 'Font Awesome Icon'
+          options:
+            'user':
+              label: 'User'
+              cssClass: 'fas fa-user'
+            'laptop-code':
+              label: 'Laptop Code'
+              cssClass: 'fas fa-laptop-code'
+            '':
+              label: 'unset icon'
+              cssClass: null
