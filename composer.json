@@ -1,5 +1,5 @@
 {
-    "description": "Neos package which enables you adding Font Awesome Icons for the CkEditor with a simple Yaml configuration",
+    "description": "Neos package which enables you adding Font Awesome Icons for the CkEditor with a simple .yaml configuration",
     "type": "neos-package",
     "name": "neosrulez/ckfontawesome",
     "require": {
